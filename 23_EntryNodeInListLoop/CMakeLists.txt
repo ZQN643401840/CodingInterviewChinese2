@@ -1,0 +1,7 @@
+cmake_minimum_required (VERSION 2.8)  
+set(CMAKE_BUILD_TYPE "Debug")
+project(app)  
+add_compile_options(-fpermissive -fPIC)
+aux_source_directory(../Utilities SRCS_UTILS)  
+aux_source_directory(./ SRCS)  
+add_executable(${PROJECT_NAME} ${SRCS_UTILS} ${SRCS})
