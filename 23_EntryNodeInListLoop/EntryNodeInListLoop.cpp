@@ -79,7 +79,7 @@ ListNode* EntryNodeOfLoop(ListNode* pHead)
 
 ListNode* EntryNodeOfLoop(ListNode* pHead)
 {
-    if (nullptr == pHead->m_pNext)  return nullptr;
+    if (nullptr == pHead || nullptr == pHead->m_pNext)  return nullptr;
     auto p_slow{pHead};    
     auto p_fast{pHead->m_pNext->m_pNext};      
 
@@ -95,8 +95,8 @@ ListNode* EntryNodeOfLoop(ListNode* pHead)
         else 
         {
             p_slow = p_slow->m_pNext;
-            p_fast = p_fast->m_pNext->m_pNext;  
             senty = p_fast->m_pNext;
+            p_fast = p_fast->m_pNext->m_pNext;              
         }
     }
     
@@ -105,11 +105,13 @@ ListNode* EntryNodeOfLoop(ListNode* pHead)
     // Adjust slow to head
     p_slow = pHead;    
     p_fast = senty;
-    while ( p_slow != p_fast)
+    // 第二条件,头节点不应该在环内,若在环内则是首尾相连的环
+    while ( p_slow != p_fast && pHead != p_fast)
     {
         p_slow = p_slow->m_pNext;  
         p_fast = p_fast->m_pNext;
-    }      
+    }            
+    if (pHead == p_fast)    return pHead;
     return p_slow;
 }
 
@@ -262,8 +264,8 @@ void Test7()
 // int main(int argc, char* argv[])
 int main()
 {
-    // Test1();
-    // Test2();
+    Test1();
+    Test2();
     Test3();
     Test4();
     Test5();
